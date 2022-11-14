@@ -1,0 +1,23 @@
+{
+  "name": "Color-Generator-project",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rimraf ./src/css && npm run sass",
+    "sass": "node-sass -r ./src/scss -o ./src/css --output-style compressed --source-map true",
+    "serve": "live-server --port=5000 --ignore='./src/scss/' --no-browser ./src/",
+    "dev": "npm run build && concurrently -k 'npm run sass -- -w' 'npm run serve'"
+  },
+  "engines": {
+    "node": ">=16.14.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "7.3.0",
+    "live-server": "1.2.2",
+    "node-sass": "6.0.1",
+    "rimraf": "3.0.2"
+  },
+  "dependencies": {}
+}
