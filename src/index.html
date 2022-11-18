@@ -6,7 +6,9 @@
   <meta http-equiv="Contente-type" content="text/html;charset-UTF-B" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/index.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -19,42 +21,49 @@
 
     <div class="container">
       <section class="buttons">
+        <div class="button-color-one">
+          <div class="color-one">
+            <div class="button-label"><label for="hex-one">Color 1</label></div>
+            <input type="color" class="link" id="hex-one" name="color-one" value="#ffffff">
+            <p id="res_hex-one">Color</p>
+          </div>
+        </div>
 
-        <div class="button-color">
-          <div class="color">
-            <div class="button-label"><label for="hex">hex</label></div>
-            <input type="color" class="link" id="hex" name="color" value="#c1aeae">
+        <div class="button-color-two">
+          <div class="color-two">
+            <div class="button-label"><label for="hex-two">Color 2</label></div>
+            <input type="color" class="link" id="hex-two" name="color-two" value="#000000">
+            <p id="res_hex-two">Color</p>
           </div>
         </div>
 
         <div class="button-number">
           <div class="number">
-            <div class="button-label"><label for="qtg">qtg</label></div>
+            <div class="button-label"><label for="qtg">Quantity</label></div>
             <input type="number" class="link" id="qtg" name="number" max="20" min="3" value="2" />
+            <p id="res_qtg">Number</p>
           </div>
         </div>
+      </section>
 
+      <section class="color-table">
+        <table class="table">
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </table>
       </section>
     </div>
-
-    <section class="table">
-      <div class="container">
-
-      </div>
-    </section>
   </div>
 
   <footer class="footer">
 
   </footer>
 
-
-
-
-
-
-
-
+  <script src="js/index.js"></script>
 
 </body>
 
