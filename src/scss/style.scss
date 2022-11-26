@@ -67,14 +67,23 @@ input[type="number"] {
 
 .number {}
 
-.color-table {}
+.table-container {
+  table {
+      border: 1px solid #f2f0ed;
+      border-collapse: collapse;
+      width: 1100px;
+      margin: 0 auto;
+      td {
+        height: 70px;
+        padding-left: 10px;
+        font-size: 25px;
+      }
+      
+    }
 
-.table {
-  // border: 2px solid #4f483c;
-  // border-collapse: collapse;
-  width: 900px;
-  margin: 0 auto;
 }
+
+
 
 td {
   border: 2px solid #4f483c;
