@@ -11,6 +11,53 @@ const res_qtg = document.querySelector('#res_qtg');
 
 const table_container = document.querySelector('.table-container');
 
+function createInput({ containerClassName, defaultColor, title }) {
+
+  const id = `hex-start-${Math.random()}`;
+
+  const inputContainer = document.createElement("div");
+  inputContainer.classList.add(`${containerClassName}`);
+
+  const input = document.createElement("input");
+  input.setAttribute("type", "color");
+  input.setAttribute("class", "link");
+  input.setAttribute("id", id);
+  input.setAttribute("value", defaultColor);
+
+
+  const divLabel = document.createElement("div");
+  divLabel.classList.add("input-label");
+  const inputLabel = document.createElement("label");
+  inputLabel.setAttribute("for", id);
+
+
+  const labelText = document.createTextNode(title);
+
+  inputLabel.appendChild(labelText);
+  divLabel.appendChild(inputLabel);
+
+  inputContainer.appendChild(divLabel);
+  inputContainer.appendChild(input);
+
+
+  return inputContainer;
+}
+
+let inputsColor = document.querySelector('.inputs-color');
+inputsColor.appendChild(createInput({
+  title: "Color 1",
+  containerClassName: "color-start",
+  defaultColor: "#FFFFFF",
+}));
+inputsColor.appendChild(createInput({
+  title: "Color 2",
+  containerClassName: "color-finish",
+  defaultColor: "#000000",
+}));
+
+
+
+
 function createTable(palette) {
   const tbl = document.createElement("table");
   const tblBody = document.createElement("tbody");
