@@ -1,18 +1,11 @@
 import { paletteCalculator } from './utils.js';
 
-const hex_start = document.querySelector('#hex-start');
-const res_hex_start = document.querySelector('#res_hex-start');
-
-const hex_finish = document.querySelector('#hex-finish');
-const res_hex_finish = document.querySelector('#res_hex-finish');
-
 const qtg = document.querySelector('#qtg');
-const res_qtg = document.querySelector('#res_qtg');
-
 const table_container = document.querySelector('.table-container');
+const colorContainer1 = document.querySelector('#color-container-1');
+const colorContainer2 = document.querySelector('#color-container-2');
 
-function createInput({ containerClassName, defaultColor, title }) {
-
+function createInput({ containerClassName, defaultColor, title, onColorChange }) {
   const id = `hex-start-${Math.random()}`;
 
   const inputContainer = document.createElement("div");
@@ -23,13 +16,12 @@ function createInput({ containerClassName, defaultColor, title }) {
   input.setAttribute("class", "link");
   input.setAttribute("id", id);
   input.setAttribute("value", defaultColor);
-
+  input.addEventListener("input", onColorChange);
 
   const divLabel = document.createElement("div");
   divLabel.classList.add("input-label");
   const inputLabel = document.createElement("label");
   inputLabel.setAttribute("for", id);
-
 
   const labelText = document.createTextNode(title);
 
@@ -39,24 +31,33 @@ function createInput({ containerClassName, defaultColor, title }) {
   inputContainer.appendChild(divLabel);
   inputContainer.appendChild(input);
 
-
-  return inputContainer;
-}
+  return {
+    getElement() {
+      return inputContainer;
+    },
+    getColor() {
+      return input.value;
+    },
+  };
+};
 
 let inputsColor = document.querySelector('.inputs-color');
-inputsColor.appendChild(createInput({
+const firstColorComponent = createInput({
   title: "Color 1",
   containerClassName: "color-start",
   defaultColor: "#FFFFFF",
-}));
-inputsColor.appendChild(createInput({
+  onColorChange: handler,
+});
+const secondColorComponent = createInput({
   title: "Color 2",
   containerClassName: "color-finish",
   defaultColor: "#000000",
-}));
+  onColorChange: handler,
+});
 
-
-
+colorContainer1.appendChild(firstColorComponent.getElement());
+colorContainer2.appendChild(secondColorComponent.getElement());
+qtg.addEventListener("input", handler);
 
 function createTable(palette) {
   const tbl = document.createElement("table");
@@ -78,14 +79,14 @@ function createTable(palette) {
 }
 
 function handler() {
-  const palette = paletteCalculator(hex_start.value, hex_finish.value, qtg.value);
+  const firstColor = firstColorComponent.getColor();
+  const secondColor = secondColorComponent.getColor();
+
+  const palette = paletteCalculator(firstColor, secondColor, qtg.value);
   const table = createTable(palette)
 
   table_container.innerHTML = '';
   table_container.appendChild(table);
 }
 
-hex_start.addEventListener("input", handler);
-hex_finish.addEventListener("input", handler);
-qtg.addEventListener("input", handler);
 handler();
