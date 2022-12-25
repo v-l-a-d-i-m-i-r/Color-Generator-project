@@ -66,10 +66,15 @@ function createTable(palette) {
   for (let i = 0; i < palette.length; i++) {
     const row = document.createElement("tr");
     const cell = document.createElement("td");
+    const blockText = document.createElement("span");
     const cellText = document.createTextNode(`${palette[i]}`);
-    cell.style.backgroundColor = `${palette[i]}`;
 
-    cell.appendChild(cellText);
+    cell.style.backgroundColor = `${palette[i]}`;
+    blockText.style.fontSize = `25px`;
+    blockText.style.color = contrastColor(palette[i]);
+
+    blockText.appendChild(cellText);
+    cell.appendChild(blockText);
     row.appendChild(cell);
     tblBody.appendChild(row);
     tbl.appendChild(tblBody);
@@ -90,3 +95,80 @@ function handler() {
 }
 
 handler();
+
+
+
+
+function hexToRgb(hex) {
+
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null
+}
+
+
+function contrastColor(background) {
+
+  const brightness = ((hexToRgb(background).r * 299) + (hexToRgb(background).g * 587) + (hexToRgb(background).b * 114)) / 1000;
+  return (brightness >= 128) ? '#000' : '#fff';
+}
+
+
+
+function contrastAutoColor(background) {
+
+  const r = hexToRgb(background).r / 255;
+  const g = hexToRgb(background).g / 255;
+  const b = hexToRgb(background).b / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+
+  let hue,
+    saturation,
+    lightness;
+
+  if (delta === 0) {
+    hue = 0;
+  } else if (max === r) {
+    hue = ((g - b) / delta) / 6
+  } else if (max === g) {
+    hue = ((b - r) / delta) + 2;
+  } else {
+    hue = (r - g) / delta + 4;
+  };
+
+  hue = Math.round(hue * 60);
+  if (hue < 0) {
+    hue += 360;
+  }
+  let oldHue = hue;
+
+  lightness = ((max + min) / 2) * 100;
+  let oldLightness = Math.round(lightness);
+
+  saturation = 100;
+  if ((oldHue >= 25 && oldHue <= 195) || oldHue >= 295) {
+    lightness = 10;
+  } else if ((oldHue >= 285 && oldHue < 295) || (oldHue > 195 && oldHue <= 205)) {
+    hue = 60;
+    lightness = 50;
+  } else {
+    lightness = 95;
+  };
+
+  if ((oldHue >= 295 || (oldHue > 20 && oldHue < 200)) && oldLightness <= 35) {
+    lightness = 95;
+  } else if (((oldHue < 25 || oldHue > 275) && oldLightness >= 60) || (oldHue > 195 && oldLightness >= 70)) {
+    lightness = 10;
+  }
+
+  return `hsl(${hue},${saturation}%,${lightness}%)`;
+
+}
+
+
