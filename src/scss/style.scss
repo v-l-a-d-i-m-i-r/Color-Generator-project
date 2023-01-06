@@ -40,7 +40,7 @@ body {
 }
 
 .link {
-  width: 250px;
+  width:100px;
   height: 50px;
   border: 1px solid #4f483c;
   border-radius: 7px;
@@ -78,10 +78,8 @@ input[type="number"] {
 
 }
 
-
-
 td {
-  border: 2px solid #4f483c;
+  // border: 2px solid #4f483c;
   height: 50px;
   background-color: rgb(241, 241, 241);
   width: 50%;
